@@ -14,17 +14,12 @@ def _tmp_pdf(bytes):
     with open(tmp.name, 'wb') as f:
         f.write(bytes)
 
-    return tmp.name
+        return pdfplumber.open(tmp.name)
 
 
 def plumb(file):
-    print(type(file))
-    time.sleep(3)
     if not os.path.exists(file):
-        file = _tmp_pdf(file)
-
-    print(file)
-    time.sleep(2)
+        return _tmp_pdf(file)
 
     return pdfplumber.open(file)
 
