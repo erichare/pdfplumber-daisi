@@ -1,11 +1,25 @@
 import pdfplumber
 import streamlit as st
 import pandas as pd
+import os
 import io
 import tempfile
 
 
+def _tmp_pdf(bytes):
+    tmp = tempfile.NamedTemporaryFile()
+
+    # Open the file for writing.
+    with open(tmp.name, 'wb') as f:
+        f.write(bytes)
+
+    return tmp.name
+
+
 def plumb(file):
+    if not os.path.exists(file):
+        file = _tmp_pdf(file)
+
     return pdfplumber.open(file)
 
 
@@ -49,14 +63,7 @@ def st_ui():
     
     if uploaded_file is not None:
         bytes_data = uploaded_file.getvalue()
-
-        tmp = tempfile.NamedTemporaryFile()
-
-        # Open the file for writing.
-        with open(tmp.name, 'wb') as f:
-            f.write(bytes_data)
-
-        pdf = plumb(tmp.name)
+        pdf = plumb(bytes_data)
     else:
         st.text("Using example.pdf for illustration")
         pdf = plumb("example.pdf")
