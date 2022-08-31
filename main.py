@@ -7,7 +7,7 @@ import tempfile
 
 
 def _tmp_pdf(bytes):
-    tmp = tempfile.NamedTemporaryFile()
+    tmp = tempfile.NamedTemporaryFile(delete=False)
 
     # Open the file for writing.
     with open(tmp.name, 'wb') as f:
