@@ -3,23 +3,12 @@ import streamlit as st
 import pandas as pd
 import os
 import io
-import tempfile
-import time
-
-
-def _tmp_pdf(bytes):
-    tmp = tempfile.NamedTemporaryFile(delete=False)
-
-    # Open the file for writing.
-    with open(tmp.name, 'wb') as f:
-        f.write(bytes)
-
-        return pdfplumber.open(tmp.name)
 
 
 def plumb(file):
     if not os.path.exists(file):
-        return _tmp_pdf(file)
+        my_f = io.BytesIO(file)
+        return pdfplumber.open(my_f)
 
     return pdfplumber.open(file)
 
