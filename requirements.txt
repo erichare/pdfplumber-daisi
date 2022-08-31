@@ -1,7 +1,4 @@
-bokeh==2.4.3 #
-numpy
+bokeh==2.4.3
 pandas
 streamlit
-pystan==2.19.1.1
-prophet
-pydaisi
+pdfplumber
