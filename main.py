@@ -4,6 +4,7 @@ import pandas as pd
 import os
 import io
 import tempfile
+import time
 
 
 def _tmp_pdf(bytes):
@@ -17,8 +18,12 @@ def _tmp_pdf(bytes):
 
 
 def plumb(file):
+    print(file)
+    time.sleep(5)
     if not os.path.exists(file):
         file = _tmp_pdf(file)
+
+    print(file)
 
     return pdfplumber.open(file)
 
